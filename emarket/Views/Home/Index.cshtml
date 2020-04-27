@@ -1,0 +1,93 @@
+﻿@model emarket.Models.Product
+@{
+    ViewBag.Title = "Home Page";
+    var listItem = ViewBag.Product;
+    String message = ViewBag.message;
+
+}
+
+<head>
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+        /* Float four columns side by side */
+        .column {
+            float: left;
+            width: 25%;
+            padding: 0 10px;
+            margin-bottom: 40px;
+        }
+        /* Remove extra left and right margins, due to padding */
+        .row {
+            margin: 30px -5px;
+        }
+            /* Clear floats after the columns */
+            .row:after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+        /* Style the counter cards */
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            text-align: left;
+            background-color: #f1f1f1;
+        }
+
+        a {
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="row">
+        @*=================================================*@
+        @*Foreach to Show data*@
+        @foreach (emarket.Models.Product product in ViewBag.Product)
+        {
+            <a href="~/Details/Details/@product.id">
+                <div class="column">
+                    <div class="card">
+                       
+                        <h5>@product.Category.name</h5>
+                        <img src="~/Uploads/@Html.Encode(product.image)" style=" width: 230px;height: 220px;" />
+                        <h3>@product.name</h3>
+                        <p>@product.price L.E</p>
+                        @{
+                            String description = product.description.ToString();
+                            if (description.Length > 20)
+                            {
+                                String des ="";
+                                char[] descrip = description.ToCharArray();
+                                for (int i = 0; i < 20; i++)
+                                {
+                                    
+                                    des += descrip[i];
+                                }
+                                des += ".....more";
+                                <p>@des</p>
+                            }
+                            else
+                            {
+                                <p>@description</p>
+                            }
+
+
+                        }
+
+
+                    </div>
+                </div>
+            </a>
+        }
+
+        <div>
+            <h1>@message</h1>
+        </div>
+    </div>
+
+
+</body>
